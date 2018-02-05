@@ -25,10 +25,14 @@ immediately!
 
 The link to the demo will be soon available here. Stay tuned!
 
+You can view a static front-end at
+[https://flibustier.github.io/e-coin](https://flibustier.github.io/e-coin)
+(translation will be available soon!)
+
 ---
 
 #### Roadmap
 
-- [*] Static front-end
+- [x] Static front-end
 - [ ] Go back-end
 - [ ] Fully functional
