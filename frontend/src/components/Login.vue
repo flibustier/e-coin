@@ -2,7 +2,7 @@
   <div>
     <div class="wrap-banner">
       <h2>E-Coin Wallet</h2>
-      <button class="btn-si btn-google" @click="login">Sign In</button>
+      <button class="btn-si" @click="login">Sign In</button>
     </div>
     <vue-particles
       color="#F4EEE7"
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-  import auth from '../auth'
+  import { isLoggedIn, login } from '../auth'
 
   export default {
     name: 'login',
@@ -36,11 +36,11 @@
     },
     methods: {
       login () {
-        auth.login()
+        login()
       }
     },
     mounted() {
-      if (auth.checkAuth()) {
+      if (isLoggedIn()) {
         this.$router.push('home')
       }
     }
@@ -82,12 +82,12 @@
   }
 
   .btn-si {
-    background-position: 1em;
-    background-repeat: no-repeat;
+    background: #dd4b39 url("../assets/img/sign-in.svg") no-repeat 1em;
     background-size: 2em;
     border-radius: 0.5em;
     border: none;
     color: white;
+    fill: white;
     cursor: pointer;
     font-size: 1em;
     height: 4em;
@@ -97,14 +97,10 @@
     transition: all 0.5s;
   }
 
-  .btn-google {
-    background-color: #dd4b39;
-    background-image: url("../assets/img/google.svg");
-  }
-  .btn-google:hover {
+  .btn-si:hover {
     background-color: #e47365;
   }
-  .btn-google:active {
+  .btn-si:active {
     background-color: #c23321;
   }
 
