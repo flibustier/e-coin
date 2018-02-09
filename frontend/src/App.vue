@@ -21,9 +21,9 @@
 import navbar from "./components/Navbar.vue";
 import sidebar from "./components/Sidebar.vue";
 import router from "./router";
-import auth from "./auth";
 import api from "./api";
 import config from "./config.json";
+import { isLoggedIn, login, logout } from './auth';
 
 export default {
 	router,
@@ -42,7 +42,7 @@ export default {
 
 	methods: {
 		fetch() {
-			if (this.isLoggedIn) {
+			if (isLoggedIn) {
 				api
 					.balance()
 					.then(fetched => {
@@ -50,7 +50,7 @@ export default {
 						this.assets = fetched;
 					})
 					.catch(e => {
-						auth.logout();
+						logout();
 						this.$router.replace("login");
 					});
 			} else {
@@ -65,7 +65,7 @@ export default {
 
 	computed: {
 		isLoggedIn: function() {
-			return auth.checkAuth();
+			return isLoggedIn();
 		},
 	},
 

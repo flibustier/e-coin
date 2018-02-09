@@ -1,5 +1,9 @@
 import axios from "axios";
 import config from "./config.json";
+import {getAccessToken, getIdToken} from "./auth";
+
+axios.defaults.headers.common['Authorization'] = 'Bearer ' + getAccessToken();
+axios.defaults.headers.common['id_token'] = getIdToken();
 
 // Get user's assets balance
 const balance = () => Promise.resolve({

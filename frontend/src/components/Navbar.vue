@@ -30,14 +30,14 @@
 </template>
 
 <script>
-    import auth from '../auth'
+    import { logout } from '../auth'
 
     export default {
         props: ["assets"],
         name: 'navbar',
         methods: {
             logout () {
-                auth.logout();
+                logout();
                 this.$router.go('/login')
             }
         },

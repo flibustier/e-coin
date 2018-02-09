@@ -9,7 +9,7 @@ import 'buefy/lib/buefy.css'
 Vue.use(VueParticles);
 Vue.use(Buefy);
 
-import auth from './auth'
+import { logout } from './auth'
 import axios from 'axios'
 
 axios.interceptors.response.use((response) => {
@@ -17,7 +17,7 @@ axios.interceptors.response.use((response) => {
 }, function (error) {
     // Do something with response error
     if (error.response.status === 401) {
-        auth.logout();
+        logout();
         router.replace('/login')
     }
     return Promise.reject(error)

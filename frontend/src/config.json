@@ -1,4 +1,7 @@
 {
+    "auth0_client_id": "y7sBfWuMpR0ko306K06FBjVzO88ibaZC",
+    "auth0_domain": "lyonnister.eu.auth0.com",
+    "auth0_audience": "https://e-coin.io",
     "api": "/api",
     "assets":  {
         "blue": 0,
