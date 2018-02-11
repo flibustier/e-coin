@@ -1,9 +1,15 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
+
 	"github.com/gorilla/mux"
+)
+
+const (
+	port = 8008
 )
 
 func StartServer() {
@@ -20,7 +26,7 @@ func StartServer() {
 	router.Handle("/", http.FileServer(http.Dir("./frontend/")))
 	router.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./static/"))))
 
-	log.Print("Server listening on http://localhost:8008/")
+	log.Printf("[OK] Server listening on http://localhost:%d/", port)
 
-	log.Fatal(http.ListenAndServe(":8008", router))
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", port), router))
 }

@@ -7,13 +7,13 @@ import (
 	"net/http"
 )
 
-/**
- * Hardcoded for now!
- * This function will return the wallet address of the user
- */
-func getUserAddress() string {
-	return "1LHoSVS4q35E9xLMczfuNPznLrraaLM7isLfYG"
+func errorResponse(w http.ResponseWriter, err error) {
+	log.Println(err)
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusInternalServerError)
+	json.NewEncoder(w).Encode("An error occurred.")
 }
+
 
 /**
  * This action serve all addresses of our wallet
@@ -34,28 +34,37 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
  * This action serve the balance of the current user, authentication required
  */
 var GetUserBalance = http.HandlerFunc(func (w http.ResponseWriter, r *http.Request) {
-
+	// We need the user email address from tokens
 	email, err := getUserEmail(r)
 	if err != nil {
-		fmt.Println(err)
-	} else {
-		fmt.Println(email)
+		errorResponse(w, err)
+		return
+	}
+	fmt.Println(email)
+
+	// The user is not registered in the database
+	if !isUserExisting(email) {
+		err = createUser(email)
+		if err != nil {
+			errorResponse(w, err)
+			return
+		}
 	}
 
-	/*
-		Todo: We have the email address, when need now a small database
-		to translate (email) to (blockchain wallet address)
-	*/
+	address, err := getUserAddress(email)
 
-	balance, err := client.GetAddressBalances(getUserAddress())
+	fmt.Println(address)
+
+	balances, err := GetBalances(address)
 	if err != nil {
-		log.Fatal(err)
-		w.WriteHeader(500)
+		errorResponse(w, err)
 		return
 	}
 
+	fmt.Println(balances)
+
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(balance.Result())
+	json.NewEncoder(w).Encode(balances)
 })
 
 /**

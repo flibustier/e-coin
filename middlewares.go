@@ -1,14 +1,15 @@
 package main
 
 import (
-	"fmt"
-	"gopkg.in/square/go-jose.v2/jwt"
-	"github.com/auth0-community/go-auth0"
-	"os"
-	"gopkg.in/square/go-jose.v2"
-	"net/http"
 	"encoding/json"
+	"fmt"
 	"log"
+	"net/http"
+	"os"
+
+	"github.com/auth0-community/go-auth0"
+	"gopkg.in/square/go-jose.v2"
+	"gopkg.in/square/go-jose.v2/jwt"
 )
 
 /**
@@ -32,10 +33,10 @@ func getValidator() *auth0.JWTValidator {
 func authMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
-		token, err := getValidator().ValidateRequest(r)
+		_, err := getValidator().ValidateRequest(r)
 
 		if err != nil {
-			fmt.Println("Token is not valid or missing token", token)
+			log.Println("[ERROR] Token is not valid or missing token")
 
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusUnauthorized)
@@ -54,14 +55,14 @@ func getUserEmail(r *http.Request) (string, error) {
 	// Maybe we should request the id_token to auth0?
 	idToken, err := jwt.ParseSigned(r.Header.Get("id_token"))
 	if err != nil {
-		log.Println("id_token cannot be parsed", err)
+		log.Println("[ERROR] id_token cannot be parsed")
 		return "", err
 	}
 
 	claims := map[string]interface{}{}
 	err = getValidator().Claims(r, idToken, &claims)
 	if err != nil {
-		fmt.Println("No claims found in JWT", err)
+		log.Println("[ERROR] No claim found in JWT")
 		return "", err
 	}
 
