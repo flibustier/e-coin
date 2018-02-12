@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="isLoggedIn && hasAssets">
+        <div v-if="isLoggedIn">
             <navbar :assets="assets" />
             <section class="section columns">
                 <div class="column is-one-quarter">
@@ -31,7 +31,6 @@ export default {
 	data() {
 		return {
 			assets: config.assets,
-			hasAssets: false,
 		};
 	},
 
@@ -42,19 +41,11 @@ export default {
 
 	methods: {
 		fetch() {
-			if (isLoggedIn) {
+			if (isLoggedIn()) {
 				api
 					.balance()
-					.then(fetched => {
-						this.hasAssets = true;
-						this.assets = fetched;
-					})
-					.catch(e => {
-						logout();
-						this.$router.replace("login");
-					});
-			} else {
-				this.$router.replace("login");
+					.then(fetched => this.assets = fetched)
+					.catch(_ => logout());
 			}
 		},
 		update() {
@@ -69,7 +60,7 @@ export default {
 		},
 	},
 
-	created() {
+	mounted() {
 		this.fetch();
 	},
 };

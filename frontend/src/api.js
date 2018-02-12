@@ -6,11 +6,8 @@ axios.defaults.headers.common['Authorization'] = 'Bearer ' + getAccessToken();
 axios.defaults.headers.common['id_token'] = getIdToken();
 
 // Get user's assets balance
-const balance = () => Promise.resolve({
-	blue: 10,
-	red: 10
-});
-/*	axios
+const balance = () =>
+	axios
 		.get(`${config.api}/user/balance`)
 		.then(response => {
 			const assets = {
@@ -18,7 +15,7 @@ const balance = () => Promise.resolve({
 				red: 0,
 			};
 
-			response.data.assets.forEach(asset => {
+			response.data.forEach(asset => {
 				if (asset.name !== undefined) {
 					assets[asset.name.toLowerCase()] = asset.qty;
 				}
@@ -28,13 +25,13 @@ const balance = () => Promise.resolve({
 		.catch(e => {
 			throw e;
 		});
-*/
+
 // Get users list
 const users = () =>
 	axios
 		.get(`${config.api}/users`)
 		.then(response => {
-			return response.data.map(user => user.email);
+			return response.data;
 		})
 		.catch(e => {
 			throw e;
