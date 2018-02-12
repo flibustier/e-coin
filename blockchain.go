@@ -63,6 +63,16 @@ func GetBalances(address string) (interface {}, error) {
 	return balance.Result(), nil
 }
 
+// This function return the list of addresses in our wallet
+func GetAddresses() (interface {}, error) {
+	addresses, err := client.GetAddresses(false)
+	if err != nil {
+		log.Println("[ERROR] Could not get addresses from Multichain!")
+		return nil, err
+	}
+	return addresses.Result(), nil
+}
+
 
 func InitializeBlockchain() {
 	// Multichain Port parameter conversion
