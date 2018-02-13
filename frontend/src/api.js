@@ -8,7 +8,7 @@ axios.defaults.headers.common['id_token'] = getIdToken();
 // Get user's assets balance
 const balance = () =>
 	axios
-		.get(`${config.api}/user/balance`)
+		.get(`${config.api}/users/balance`)
 		.then(response => {
 			const assets = {
 				blue: 0,
@@ -41,7 +41,7 @@ const users = () =>
 
 const transfer = (beneficiary, assets) =>
 	axios
-		.post(`${config.api}/user/transfer`, {
+		.post(`${config.api}/users/transfer`, {
 			emailTo: beneficiary,
 			balance: {
 				assets: assets.map(asset => {
@@ -60,7 +60,7 @@ const transfer = (beneficiary, assets) =>
 
 const importAddress = (address, privkey) =>
 	axios
-		.post(`${config.api}/user/mining/import`, {
+		.post(`${config.api}/users/mining/import`, {
 			publicKey: address,
 			privateKey: privkey,
 		})
@@ -70,7 +70,7 @@ const importAddress = (address, privkey) =>
 
 const register = address =>
 	axios
-		.post(`${config.api}/user/mining/initialize`, {
+		.post(`${config.api}/users/mining/initialize`, {
 			publicKey: address,
 			privateKey: null,
 		})
@@ -91,7 +91,7 @@ const goodies = () =>
 		});
 
 const purchase = goodie =>
-	axios.post(`${config.api}/user/goodies/buy`, goodie).catch(e => {
+	axios.post(`${config.api}/users/goodies/buy`, goodie).catch(e => {
 		throw e;
 	});
 
@@ -99,7 +99,7 @@ const purchase = goodie =>
 
 const transactions = () =>
 	axios
-		.get(`${config.api}/user/transactions`)
+		.get(`${config.api}/users/transactions`)
 		.then(response => {
 			return response.data.map(transaction => {
 				const unit = Object.keys(transaction.deposits)[0];
@@ -130,7 +130,7 @@ const exchangeRate = () =>
 		});
 
 const change = amount =>
-	axios.get(`${config.api}/user/exchange?number=${amount}`).catch(e => {
+	axios.get(`${config.api}/users/exchange?number=${amount}`).catch(e => {
 		throw e;
 	});
 
