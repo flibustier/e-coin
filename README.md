@@ -22,6 +22,8 @@ for now, perfect for building a private blockchain!
 E-Coin platform use a [Vue.js](https://github.com/vuejs/vue) front-end, and a Go
 back-end (WIP).
 
+![E-Coin architecture](./resources/e-coin-archi.png)
+
 #### Can I test it?
 
 Sure! As a loyal E-Corp employee, you can register and get your first E-Coin
@@ -38,5 +40,9 @@ You can view a static front-end at
 #### Roadmap
 
 - [x] Static front-end
-- [ ] Go back-end
+- [ ] Go back-end 
 - [ ] Fully functional
+
+#### License
+
+[MIT](http://opensource.org/licenses/MIT)
