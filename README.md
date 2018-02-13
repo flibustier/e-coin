@@ -1,4 +1,8 @@
-### E-Coin
+<p align="center">
+    <a href="https://e-coin.jonathan.pl/" target="_blank">
+        <img width="100" src="./resources/ecoin-dark.png" alt="E-Coin">
+    </a>
+</p>
 
 ---
 
