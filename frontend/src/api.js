@@ -42,15 +42,13 @@ const users = () =>
 const transfer = (beneficiary, assets) =>
 	axios
 		.post(`${config.api}/users/transfer`, {
-			emailTo: beneficiary,
-			balance: {
-				assets: assets.map(asset => {
-					return {
-						name: asset.currency.toUpperCase(),
-						qty: asset.amount,
-					};
-				}),
-			},
+			to: beneficiary,
+			assets: assets.map(asset => {
+				return {
+					name: asset.currency,
+					qty: asset.amount,
+				};
+			}),
 		})
 		.catch(e => {
 			throw e;

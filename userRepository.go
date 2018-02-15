@@ -1,8 +1,9 @@
 package main
 
 import (
-	"log"
 	"fmt"
+	"log"
+	"net/http"
 
 	"github.com/boltdb/bolt"
 )
@@ -43,7 +44,7 @@ func InitializeDatabase() {
  * If the user email address doesn't exist in the database,
  * it would be added and a new wallet address will be created
  */
-func getUserAddress(email string) (string, error) {
+func getUserAddressFromEmail(email string) (string, error) {
 	var address string
 	err := db.View(func(tx *bolt.Tx) error {
 		b := tx.Bucket(bucket)
@@ -61,8 +62,26 @@ func getUserAddress(email string) (string, error) {
 	return address, fmt.Errorf("email doesn't exist")
 }
 
+func getUserAddressFromRequest(r *http.Request) (string, error) {
+	// We need the user email address from tokens
+	email, err := getUserEmail(r)
+	if err != nil {
+		return "", err
+	}
+
+	// The user is not registered in the database
+	if !isUserExisting(email) {
+		err = createUser(email)
+		if err != nil {
+			return "", err
+		}
+	}
+
+	return getUserAddressFromEmail(email)
+}
+
 func isUserExisting(email string) bool {
-	_, err := getUserAddress(email)
+	_, err := getUserAddressFromEmail(email)
 	return err == nil
 }
 

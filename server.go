@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	port = 8008
+	port = 8080
 )
 
 func HomeHandler(rw http.ResponseWriter, r *http.Request) {
@@ -22,13 +22,14 @@ func StartServer() {
 	router := mux.NewRouter()
 
 	// For User Controller
-	router.HandleFunc("/users", GetUsers).Methods("GET")
-	router.HandleFunc("/user/balance", GetUserBalance).Methods("GET")
-	router.HandleFunc("/user/transfer", CreateUserTransaction).Methods("POST")
-	router.HandleFunc("/user/transactions", GetUserTransactions).Methods("GET")
+	api := router.PathPrefix("/users").Subrouter().StrictSlash(true)
+	api.Methods("GET").Path("").HandlerFunc(GetUsers)
+	api.Methods("GET").Path("/balance").HandlerFunc(GetUserBalance)
+	api.Methods("POST").Path("/transfer").HandlerFunc(CreateUserTransaction)
+	api.Methods("GET").Path("/transactions").HandlerFunc(GetUserTransactions)
+	api.Use(authMiddleware)
 
 	// And for frontend
-
 	router.HandleFunc("/", HomeHandler)
 	router.HandleFunc("/login", HomeHandler)
 	router.HandleFunc("/callback", HomeHandler)
@@ -39,9 +40,10 @@ func StartServer() {
 	// CORS
 	c := cors.New(cors.Options{
 		AllowedOrigins: []string{"http://localhost:8080", "https://flibustier.github.io"},
-		AllowedHeaders: []string{"authorization", "id_token"},
+		AllowedHeaders: []string{"authorization", "id_token", "content-type"},
 	})
 
+
 	log.Printf("[OK] Server listening on http://localhost:%d/", port)
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", port), c.Handler(authMiddleware(router))))
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", port), c.Handler(router)))
 }

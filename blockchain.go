@@ -40,6 +40,17 @@ func Grant(address string) {
 	client.Grant([]string{address}, permissions)
 }
 
+// Send a quantity of asset name to an address
+func SendAsset(from string, to string, name string, value float64) error {
+	response, err := client.SendAssetFrom(from, to, name, value)
+	if err != nil {
+		log.Printf("[ERROR] %f quantity of asset %s couldn't be sent from %s to %s\n", value, name, from, to)
+		log.Println(response)
+		return err
+	}
+	return nil
+}
+
 // This function generate a new wallet address
 func NewAddress() (string, error) {
 	response, err := client.GetNewAddress()
@@ -95,7 +106,7 @@ func InitializeBlockchain() {
 	// Simple command to test everything is fine and giving information of Multichain node
 	obj, err := client.GetInfo()
 	if err != nil {
-		log.Fatal("[FATAL] Cannot get informations from Multichain RPC", err)
+		log.Fatal("[FATAL] Cannot get informations from Multichain RPC\n", err)
 	}
 	log.Println("[OK] Multichain is up and running", obj.Result())
 

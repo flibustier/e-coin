@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"io/ioutil"
 	"log"
 	"net/http"
 )
@@ -29,26 +30,16 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 }
 
 /**
- * This action serve the balance of the current user, authentication required
+ * This action serve the balance of the current user
+ * Authentication required
  */
 func GetUserBalance(w http.ResponseWriter, r *http.Request) {
-	// We need the user email address from tokens
-	email, err := getUserEmail(r)
+	address, err := getUserAddressFromRequest(r)
 	if err != nil {
 		errorResponse(w, err)
 		return
 	}
 
-	// The user is not registered in the database
-	if !isUserExisting(email) {
-		err = createUser(email)
-		if err != nil {
-			errorResponse(w, err)
-			return
-		}
-	}
-
-	address, err := getUserAddress(email)
 	balances, err := GetBalances(address)
 	if err != nil {
 		errorResponse(w, err)
@@ -59,12 +50,48 @@ func GetUserBalance(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(balances)
 }
 
+type Transaction struct{
+	To     string  `json:"to"`
+	Assets []struct {
+		Name string `json:"name"`
+		Qty  int    `json:"qty"`
+	} `json:"assets"`
+}
+
 /**
  * This action create an new transaction for the current user
  * Authentication required
  */
 func CreateUserTransaction(w http.ResponseWriter, r *http.Request) {
+	var data Transaction
+	body, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		log.Println("[ERROR] Could not read request body")
+		errorResponse(w, err)
+		return
+	}
+	err = json.Unmarshal(body, &data)
+	if err != nil {
+		log.Println("[ERROR] JSON is invalid in the request body for a transaction")
+		errorResponse(w, err)
+		return
+	}
 
+	address, err := getUserAddressFromRequest(r)
+	if err != nil {
+		errorResponse(w, err)
+		return
+	}
+
+	for _, asset := range data.Assets {
+		if asset.Qty > 0 {
+			err = SendAsset(address, data.To, asset.Name, float64(asset.Qty))
+			if err != nil {
+				errorResponse(w, err)
+				break
+			}
+		}
+	}
 }
 
 /**
