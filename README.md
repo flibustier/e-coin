@@ -44,7 +44,7 @@ Sure!
 ##### Build Blockchain
 
 First you need to download [Multichain], 
-then follow these steps by replacing `ecoin` with the name of your currency:
+then follow these steps by replacing `e-coin` with the name of your currency:
 ```$xslt
 multichain-util create e-coin
 
@@ -99,8 +99,18 @@ Follow instructions in the [frontend directory](./frontend/README.md)
 #### Roadmap
 
 - [x] Static front-end
-- [ ] Go back-end 
+- [ ] Go back-end
+  - [x] Multichain integration
+  - [x] Database support
+  - [x] Create new users
+  - [x] Get user balance
+  - [ ] Get list of user
+  - [x] Create new transaction
+  - [ ] Get user history 
 - [ ] Fully functional
+- [ ] Release
+- [ ] Add a blockchain explorer
+- [ ] Add new functionality
 
 #### License
 
