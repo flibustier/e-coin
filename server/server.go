@@ -1,19 +1,21 @@
-package main
+package server
 
 import (
 	"fmt"
 	"log"
 	"net/http"
 
+	"github.com/flibustier/e-coin/controller"
+
 	"github.com/gorilla/mux"
 	"github.com/rs/cors"
 )
 
 const (
-	port = 8080
+	port = 8008
 )
 
-func HomeHandler(rw http.ResponseWriter, r *http.Request) {
+func homeHandler(rw http.ResponseWriter, r *http.Request) {
 	http.ServeFile(rw, r, "./frontend/index.html")
 }
 
@@ -23,16 +25,17 @@ func StartServer() {
 
 	// For User Controller
 	api := router.PathPrefix("/users").Subrouter().StrictSlash(true)
-	api.Methods("GET").Path("").HandlerFunc(GetUsers)
-	api.Methods("GET").Path("/balance").HandlerFunc(GetUserBalance)
-	api.Methods("POST").Path("/transfer").HandlerFunc(CreateUserTransaction)
-	api.Methods("GET").Path("/transactions").HandlerFunc(GetUserTransactions)
+	api.Methods("GET").Path("").HandlerFunc(controller.GetUsers)
+	api.Methods("GET").Path("/balance").HandlerFunc(controller.GetUserBalance)
+	api.Methods("POST").Path("/transfer").HandlerFunc(controller.CreateUserTransaction)
+	api.Methods("GET").Path("/transactions").HandlerFunc(controller.GetUserTransactions)
 	api.Use(authMiddleware)
+	api.Use(idMiddleware)
 
 	// And for frontend
-	router.HandleFunc("/", HomeHandler)
-	router.HandleFunc("/login", HomeHandler)
-	router.HandleFunc("/callback", HomeHandler)
+	router.HandleFunc("/", homeHandler)
+	router.HandleFunc("/login", homeHandler)
+	router.HandleFunc("/callback", homeHandler)
 	router.PathPrefix("/css/").Handler(http.StripPrefix("/css/", http.FileServer(http.Dir("./frontend/css/"))))
 	router.PathPrefix("/dist/").Handler(http.StripPrefix("/dist/", http.FileServer(http.Dir("./frontend/dist/"))))
 	router.PathPrefix("/fonts/").Handler(http.StripPrefix("/fonts/", http.FileServer(http.Dir("./frontend/fonts/"))))
@@ -42,7 +45,6 @@ func StartServer() {
 		AllowedOrigins: []string{"http://localhost:8080", "https://flibustier.github.io"},
 		AllowedHeaders: []string{"authorization", "id_token", "content-type"},
 	})
-
 
 	log.Printf("[OK] Server listening on http://localhost:%d/", port)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", port), c.Handler(router)))

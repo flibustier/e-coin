@@ -1,4 +1,4 @@
-package main
+package repository
 
 import (
 	"log"
@@ -10,29 +10,29 @@ import (
 )
 
 const (
-	InitialReward = 10			// Quantity of asset that will be given to new users
-	RewardName = "blue"			// Asset's name for reward
-	RewardHalvingInterval = 100	// Every time the number of addresses in our wallet reach this value,
-								// the reward will be halved
+	InitialReward         = 10     // Quantity of asset that will be given to new users
+	RewardName            = "blue" // Asset's name for reward
+	RewardHalvingInterval = 100    // Every time the number of addresses in our wallet reach this value,
+	// the reward will be halved
 )
 
-// Store the number of address in the wallet to avoid useless API calls
+// numberOfAddresses stores the number of address in the wallet to avoid useless API calls
 var numberOfAddresses uint32
 
-// The Multichain client initialized
+// client is the Multichain client API initialized
 var client *multichain.Client
 
-// Calculation for the current reward quantity based on the number of addresses and reward halving interval
+// currentRewardQuantity calculates the current reward quantity based on the number of addresses and reward halving interval
 func currentRewardQuantity() float64 {
 	return InitialReward / math.Pow(2, math.Trunc(float64(numberOfAddresses)/RewardHalvingInterval))
 }
 
-// Credit an address with the current reward quantity
+// CreditAddress credits an address with the current reward quantity
 func CreditAddress(address string) {
 	client.IssueMore(address, RewardName, currentRewardQuantity())
 }
 
-// Grant send and receive permissions to address
+// Grant grants 'send' and 'receive' permissions to the address
 func Grant(address string) {
 	var permissions []string
 	permissions = append(permissions, "receive")
@@ -40,7 +40,7 @@ func Grant(address string) {
 	client.Grant([]string{address}, permissions)
 }
 
-// Send a quantity of asset name to an address
+// SendAsset sends a quantity of asset name to an address
 func SendAsset(from string, to string, name string, value float64) error {
 	response, err := client.SendAssetFrom(from, to, name, value)
 	if err != nil {
@@ -51,7 +51,7 @@ func SendAsset(from string, to string, name string, value float64) error {
 	return nil
 }
 
-// This function generate a new wallet address
+// NewAddress generates a new wallet address
 func NewAddress() (string, error) {
 	response, err := client.GetNewAddress()
 	if err != nil {
@@ -64,8 +64,8 @@ func NewAddress() (string, error) {
 	return address, nil
 }
 
-// This function return the assets balance for the address
-func GetBalances(address string) (interface {}, error) {
+// GetBalances returns the asset balance for the address
+func GetBalances(address string) (interface{}, error) {
 	balance, err := client.GetAddressBalances(address)
 	if err != nil {
 		log.Printf("[ERROR] Could not get address balance for %s\n", address)
@@ -74,8 +74,8 @@ func GetBalances(address string) (interface {}, error) {
 	return balance.Result(), nil
 }
 
-// This function return the list of addresses in our wallet
-func GetAddresses() (interface {}, error) {
+// GetAddresses returns the list of addresses in our wallet
+func GetAddresses() (interface{}, error) {
 	addresses, err := client.GetAddresses(false)
 	if err != nil {
 		log.Println("[ERROR] Could not get addresses from Multichain!")
@@ -83,7 +83,6 @@ func GetAddresses() (interface {}, error) {
 	}
 	return addresses.Result(), nil
 }
-
 
 func InitializeBlockchain() {
 	// Multichain Port parameter conversion
@@ -115,7 +114,7 @@ func InitializeBlockchain() {
 	if err != nil {
 		log.Fatal("[FATAL] Could not get addresses from Multichain", err)
 	}
-	addresses := obj.Result().([]interface {})
+	addresses := obj.Result().([]interface{})
 	numberOfAddresses = uint32(len(addresses))
 	log.Printf("[OK] Your wallet currently have %d address(es)\n", numberOfAddresses)
 	log.Printf("[OK] The current reward is fixed to %f\n", currentRewardQuantity())

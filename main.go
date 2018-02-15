@@ -3,9 +3,10 @@ package main
 import (
 	"log"
 
+	"github.com/flibustier/e-coin/repository"
+	"github.com/flibustier/e-coin/server"
 	"github.com/joho/godotenv"
 )
-
 
 func main() {
 	// Load .env file for setting auth0 secrets and Multichain parameters
@@ -14,21 +15,10 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 
-	InitializeBlockchain()
+	repository.InitializeBlockchain()
 
-	InitializeDatabase()
-	defer db.Close()
+	repository.InitializeDatabase()
 
 	// We can launch the server (finally)!
-	StartServer()
+	server.StartServer()
 }
-
-
-
-
-
-
-
-
-
-

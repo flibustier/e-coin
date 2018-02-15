@@ -1,4 +1,4 @@
-package main
+package repository
 
 import (
 	"fmt"
@@ -6,16 +6,16 @@ import (
 	"net/http"
 
 	"github.com/boltdb/bolt"
+	"github.com/gorilla/context"
 )
 
 const (
-	BucketName = "address"		// The name of the bucket for storing addresses
-	FileName = "e-coin.db"		// The file name for the data file
+	BucketName = "address"   // The name of the bucket for storing addresses
+	FileName   = "e-coin.db" // The file name for the data file
 )
 
-var db *bolt.DB					// The Bolt Database
+var db *bolt.DB // The Bolt Database
 var bucket = []byte(BucketName)
-
 
 func InitializeDatabase() {
 	var err error
@@ -37,9 +37,28 @@ func InitializeDatabase() {
 	log.Printf("[OK] Bucket [%s] is ready\n", BucketName)
 }
 
+func GetUserAddressFromRequest(r *http.Request) (string, error) {
+	// We need the user email address from tokens
+	email := getUserEmail(r)
+
+	// The user is not registered in the database
+	if !isUserExisting(email) {
+		err := createUser(email)
+		if err != nil {
+			return "", err
+		}
+	}
+
+	return getUserAddressFromEmail(email)
+}
+
+// getUserEmail extracts id_token from request context and returns the user email
+func getUserEmail(r *http.Request) string {
+	return context.Get(r, "email").(string)
+}
 
 /**
- * This function return the wallet address of the user
+ * getUserAddressFromEmail return the wallet address of the user
  * based on his email address
  * If the user email address doesn't exist in the database,
  * it would be added and a new wallet address will be created
@@ -62,33 +81,12 @@ func getUserAddressFromEmail(email string) (string, error) {
 	return address, fmt.Errorf("email doesn't exist")
 }
 
-func getUserAddressFromRequest(r *http.Request) (string, error) {
-	// We need the user email address from tokens
-	email, err := getUserEmail(r)
-	if err != nil {
-		return "", err
-	}
-
-	// The user is not registered in the database
-	if !isUserExisting(email) {
-		err = createUser(email)
-		if err != nil {
-			return "", err
-		}
-	}
-
-	return getUserAddressFromEmail(email)
-}
-
 func isUserExisting(email string) bool {
 	_, err := getUserAddressFromEmail(email)
 	return err == nil
 }
 
-
-/**
- * This will create a new wallet address and save it in the database at "email" key
- */
+// createUser creates a new wallet address and save it in the database at "email" key
 func createUser(email string) error {
 	// We generate a new wallet address for the user
 	address, err := NewAddress()

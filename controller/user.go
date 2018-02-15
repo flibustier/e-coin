@@ -1,12 +1,15 @@
-package main
+package controller
 
 import (
 	"encoding/json"
 	"io/ioutil"
 	"log"
 	"net/http"
+
+	"github.com/flibustier/e-coin/repository"
 )
 
+// errorResponse writes a response with Status Internal Server Error (500) and log error
 func errorResponse(w http.ResponseWriter, err error) {
 	log.Println(err)
 	w.Header().Set("Content-Type", "application/json")
@@ -14,12 +17,9 @@ func errorResponse(w http.ResponseWriter, err error) {
 	json.NewEncoder(w).Encode("An error occurred.")
 }
 
-
-/**
- * This action serve all addresses of our wallet
- */
+// GetUsers serves all registered addresses of our wallet
 func GetUsers(w http.ResponseWriter, r *http.Request) {
-	addresses, err := GetAddresses()
+	addresses, err := repository.GetAddresses()
 	if err != nil {
 		errorResponse(w, err)
 		return
@@ -29,18 +29,15 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(addresses)
 }
 
-/**
- * This action serve the balance of the current user
- * Authentication required
- */
+// GetUserBalance serves the balance of the current user
 func GetUserBalance(w http.ResponseWriter, r *http.Request) {
-	address, err := getUserAddressFromRequest(r)
+	address, err := repository.GetUserAddressFromRequest(r)
 	if err != nil {
 		errorResponse(w, err)
 		return
 	}
 
-	balances, err := GetBalances(address)
+	balances, err := repository.GetBalances(address)
 	if err != nil {
 		errorResponse(w, err)
 		return
@@ -50,18 +47,16 @@ func GetUserBalance(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(balances)
 }
 
-type Transaction struct{
-	To     string  `json:"to"`
+// Transaction represents the structure received during a new transaction request
+type Transaction struct {
+	To     string `json:"to"`
 	Assets []struct {
 		Name string `json:"name"`
 		Qty  int    `json:"qty"`
 	} `json:"assets"`
 }
 
-/**
- * This action create an new transaction for the current user
- * Authentication required
- */
+// CreateUserTransaction creates a new transaction for the current user
 func CreateUserTransaction(w http.ResponseWriter, r *http.Request) {
 	var data Transaction
 	body, err := ioutil.ReadAll(r.Body)
@@ -77,7 +72,7 @@ func CreateUserTransaction(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	address, err := getUserAddressFromRequest(r)
+	address, err := repository.GetUserAddressFromRequest(r)
 	if err != nil {
 		errorResponse(w, err)
 		return
@@ -85,7 +80,7 @@ func CreateUserTransaction(w http.ResponseWriter, r *http.Request) {
 
 	for _, asset := range data.Assets {
 		if asset.Qty > 0 {
-			err = SendAsset(address, data.To, asset.Name, float64(asset.Qty))
+			err = repository.SendAsset(address, data.To, asset.Name, float64(asset.Qty))
 			if err != nil {
 				errorResponse(w, err)
 				break
@@ -94,14 +89,9 @@ func CreateUserTransaction(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-/**
- * This action serve the history of all transactions (in and out) for the current user
- * Authentication required
- */
+// GetUserTransactions serves the history of all transactions (in and out) for the current user
 func GetUserTransactions(w http.ResponseWriter, r *http.Request) {
 	// There is no function for it in github.com/golangdaddy/multichain-client, we should implement it!
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode([]string{})
 }
-
-

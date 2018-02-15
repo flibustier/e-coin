@@ -80,6 +80,7 @@ You can now fill you `.env` file with the RPC credentials in
 You need this dependencies:
 ```$xslt
 go get github.com/gorilla/mux
+go get github.com/gorilla/context
 go get github.com/rs/cors
 go get github.com/joho/godotenv
 go get github.com/boltdb/bolt
