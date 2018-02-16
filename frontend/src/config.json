@@ -2,7 +2,7 @@
     "auth0_client_id": "y7sBfWuMpR0ko306K06FBjVzO88ibaZC",
     "auth0_domain": "lyonnister.eu.auth0.com",
     "auth0_audience": "https://e-coin.io",
-    "api": "http://localhost:8008",
+    "api": "https://e-coin.jonathan.pl",
     "assets":  {
         "blue": 0,
         "red": 0
