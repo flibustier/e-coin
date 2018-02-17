@@ -31,11 +31,7 @@ back-end (WIP).
 Sure! As a loyal E-Corp employee, you can register and get your first E-Coin
 immediately!
 
-The link to the demo will be very soon available here. Stay tuned!
-
-You can view a static front-end at
-<https://flibustier.github.io/e-coin>
-(translation will be available very soon!)
+The link to the demo: <https://flibustier.github.io/e-coin>(translation will be available very soon!)
 
 #### It's awesome! I want to build my own E-Coin!
 
@@ -77,19 +73,21 @@ You can now fill you `.env` file with the RPC credentials in
 
 ##### Build Back-end
 
-You need this dependencies:
 ```$xslt
-go get github.com/gorilla/mux
-go get github.com/gorilla/context
-go get github.com/rs/cors
-go get github.com/joho/godotenv
-go get github.com/boltdb/bolt
-go get github.com/golangdaddy/multichain-client
-go get github.com/auth0-community/go-auth0
-go get gopkg.in/square/go-jose.v2
+go get github.com/flibustier/e-coin
 ```
 
 Don't forget to fill the `.env` file
+
+The dependencies are:
+* gorilla/mux
+* gorilla/context
+* rs/cors
+* joho/godotenv
+* boltdb/bolt
+* golangdaddy/multichain-client
+* auth0-community/go-auth0
+* gopkg.in/square/go-jose.v2
 
 ##### Build Front-end
 
@@ -100,7 +98,7 @@ Follow instructions in the [frontend directory](./frontend/README.md)
 #### Roadmap
 
 - [x] Static front-end
-- [ ] Go back-end
+- [x] Go back-end
   - [x] Multichain integration
   - [x] Database support
   - [x] Create new users
@@ -109,7 +107,7 @@ Follow instructions in the [frontend directory](./frontend/README.md)
   - [x] Create new transaction
   - [ ] Get user history 
 - [ ] Fully functional
-- [ ] Release
+- [x] Release
 - [ ] Add a blockchain explorer
 - [ ] Add new functionality
 
