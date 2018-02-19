@@ -3,94 +3,81 @@
     <section class="hero is-primary">
       <div class="hero-body">
         <h1 class="title is-4">
-          Bienvenue sur la plateforme de gestion de vos E-Coins !
+          Welcome to the management platform of your E-Coins!
         </h1>
       </div>
     </section>
 
     <div class="content">
       <h3 class="home-title is-4">
-        À quoi ça sert ?
+        What's the point?
       </h3>
 
       <hr/>
 
       <p>
-        La finalité du E-Coin est actuellement la reconnaissance par les pairs
-        (et par E-Corp).
-        Ainsi, quand un collaborateur fait un geste envers vous qui vous est
-        utile dans votre travail, vous pouvez lui transfèrer des E-Coins.
+        The purpose of the E-Coin is currently peer recognition (and by E-Corp).
+        Thus, when a collaborator makes a gesture to you that is useful to you in your work,
+        you can transfer him E-Coins.
       </p>
       <p>
-        Par exemple, Alice a débloqué Bob dans sa compréhension du dernier
-        framework à la mode, du coup pour la remercier, Bob lui transfert 3 E-Coins.
+        For example, Alice unlocked Bob in his understanding of the latest fashionable framework,
+        so to thanks her, Bob transferred her 3 E-Coins.
       </p>
       <p>
-        Autre exemple, Charles a rempli le CRA de Dorothée qui avait oublié et
-        qui était en vacance. Dorothée lui transfert alors 5 E-Coins.
-      </p>
-      <p>
-        Il n'y a pas de grille permettant de savoir combien de E-Coins donner
-        pour un service précis. Ce choix est personnel. D'ailleurs, rien ne vous
-        oblige à donner des E-Coins.
+        There is no grid to know how many E-Coins give for a specific service.
+        This choice is personal. Besides, nothing forces you to give E-Coins.
       </p>
     </div>
 
     <div class="content">
       <h3 class="home-title">
-        Bleu, Rouge…?!
+        Blue, Red…?!
       </h3>
 
       <hr/>
 
       <p>
-        Le E-Coin existe en plusieurs couleurs. Actuellement, il n'existe que
-        Bleu et Rouge. <br>
+        E-Coin exists in different colors. Currently, only blue and red are available.
       </p>
       <p>
-        La couleur <span class="tag is-info">Bleu</span>
-        correspond à la monnaie de « base » obtenue par tout le monde
-        régulièrement.<br/>
+        The <span class="tag is-info">Blue</span> color corresponds to the normal reward given
+        to all E-Corp employees.
       </p>
       <p>
-        La couleur <span class="tag is-danger">Rouge</span> est obtenue quand
-        quelqu'un vous transfert des E-Coins.
+        The <span class="tag is-danger">Red</span> color can be obtain when someone gives you some E-Coins.
       </p>
       <p>
-        Les E-Coins <span class="tag is-danger">Rouge</span> sont donc la
-        représentation des services que vous avez rendus à des E-Corp.
-        Ce sont les E-Coins dont vous pouvez être fiers ! Y compris en entretien
-        annuel ;)
+        The <span class="tag is-danger">Red</span> are the proof of services you gived to
+        E-Corp.
+        These are the E-Coins you can be proud of! Including in HR interview ;)
       </p>
     </div>
 
     <div class="content">
       <h3 class="home-title">
-        Quel est mon solde ?
+        What is my balance?
       </h3>
 
       <hr/>
 
       <p>
-        Votre solde est indiqué en haut à droite<br/>
-        Actuellement vous disposez de
-        <span class="tag is-info">{{ assets.blue }}</span> E-Coins bleus,
-        ainsi que de <span class="tag is-danger">{{ assets.red }}</span>
-        E-Coins rouge
+        Your balance can be viewed in the top right of this application<br/>
+        Currently, you have
+        <span class="tag is-info">{{ assets.blue }}</span> blue E-Coins,
+        and <span class="tag is-danger">{{ assets.red }}</span> red E-Coins
       </p>
     </div>
 
     <div class="content">
-      <h3>Comment ça marche ?</h3>
+      <h3>How it works?</h3>
       <p>
-        Le E-Coin est une crypto-monnaie similaire au
-        <a href="https://fr.wikipedia.org/wiki/Bitcoin">Bitcoin</a>.<br/>
-        En effet, le E-Coin est basé sur une blockchain proche du Bitcoin,
-        tournant grâce à <a href="https://www.multichain.com/">Multichain</a>
+        E-Coins are assets on a blockchain similar to
+        <a href="https://fr.wikipedia.org/wiki/Bitcoin">Bitcoin</a>,
+        built with <a href="https://www.multichain.com/">Multichain</a>
         <br/>
-        Le livre blanc expliquant plus en détail le fonctionnement du E-Coin
-        est disponible à cette
-        <a href="https://github.com/e-corp/e-coin/whitepaper">adresse</a>
+        More information about this project can be found in
+        <a href="https://github.com/flibustier/e-coin">this repository</a>
       </p>
     </div>
 

@@ -5,7 +5,7 @@
     </div>
 
     <div v-if="!isFetching && transactions.length < 1">
-      <span>Aucune donnée trouvée pour cet utilisateur</span>
+      <span>No data found for this user</span>
     </div>
 
     <section v-if="!isFetching && transactions.length > 0">
@@ -21,36 +21,36 @@
           <b-table-column label="Type de transaction" sortable>
             <div v-if="props.row.type === 'user'">
               <span class="tag is-info">
-                <b-icon :icon="'swap_horiz'">Utilisateur</b-icon>
-                Utilisateur
+                <b-icon :icon="'swap_horiz'">User</b-icon>
+                User
               </span>
             </div>
             <div v-else>
               <span class="tag is-danger">
-                <b-icon :icon="'shopping_cart'">Utilisateur</b-icon>
-                Achat
+                <b-icon :icon="'shopping_cart'">User</b-icon>
+                Purchase
               </span>
             </div>
           </b-table-column>
 
-          <b-table-column field="from" label="Émetteur" sortable>
+          <b-table-column field="from" label="Origin" sortable>
             {{ props.row.from }}
           </b-table-column>
 
-          <b-table-column field="to" label="Bénéficiaire" sortable>
+          <b-table-column field="to" label="Recipient" sortable>
             {{ props.row.to }}
           </b-table-column>
 
-          <b-table-column field="amount" label="Montant" width="40" sortable numeric>
+          <b-table-column field="amount" label="Amount" width="40" sortable numeric>
             {{ props.row.amount }}
           </b-table-column>
 
-          <b-table-column field="unit" label="Devise" sortable>
+          <b-table-column field="unit" label="Currency" sortable>
             <span class="tag is-danger" v-if="props.row.unit === 'RED'">
-              Rouge
+              Red
             </span>
             <span class="tag is-info" v-else>
-              Bleu
+              Blue
             </span>
           </b-table-column>
 

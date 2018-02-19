@@ -1,17 +1,17 @@
 <template>
   <div>
     <h1 class="title is-4">
-      Transfert de E-Coins
+      E-Coins Transfer
     </h1>
 
     <hr/>
 
     <b-notification type="is-warning">
-      Tout transfert est immédiat et <strong>irréversible</strong>.
+      Any transfer is immediate and <strong>irreversible</strong>.
     </b-notification>
 
     <h2 class="subtitle">
-      Destinataire
+      Recipient
     </h2>
 
     <b-field grouped>
@@ -20,7 +20,7 @@
         v-model="autocomplete.name"
         :data="filteredDataArray"
         field="email"
-        placeholder="Ex: Jon…"
+        placeholder="Ex: 1LZbix…"
         icon="search"
         type="search"
         :loading="autocomplete.isFetching"
@@ -31,12 +31,12 @@
 
   <hr/>
 
-  <h3 class="subtitle">Montants</h3>
+  <h3 class="subtitle">Amounts</h3>
 
   <div class="tile is-ancestor">
     <div v-for="asset in wallet" class="tile is-parent is-4">
       <article class="tile is-child box">
-        <h1 class="subtitle">E-Coin {{ asset.name }}</h1>
+        <h1 class="subtitle">{{ asset.name }} E-Coin</h1>
         <div class="block">
           <p>
             <slider :type="asset.color" :value="asset.amount" :max="asset.max"
@@ -57,7 +57,7 @@
     <p class="control level-right">
       <button class="button is-warning" @click="isModalActive = true"
       :disabled="!ready">
-        <span>Transfert</span>
+        <span>Transfer</span>
       </button>
     </p>
   </b-field>
@@ -66,12 +66,11 @@
     <form>
       <div class="modal-card">
         <header class="modal-card-head">
-          <p class="modal-card-title">Confirmation de transfert</p>
+          <p class="modal-card-title">Transfer confirmation</p>
         </header>
         <section class="modal-card-body">
           <p>
-            Vous êtes sur le point d'effectuer le transfert suivant à
-            {{ autocomplete.selected }}
+            You are about to make the next transfer to {{ autocomplete.selected }}
           </p>
           <p v-for="asset in wallet" v-if="asset.amount > 0">
             {{ asset.amount }} {{ asset.name}}
@@ -112,14 +111,14 @@ export default {
       isLoading: false,
       wallet: [
         {
-          name: "Bleu",
+          name: "Blue",
           currency: "blue",
           amount: 0,
           max: 0,
           color: "",
         },
         {
-          name: "Rouge",
+          name: "Red",
           currency: "red",
           amount: 0,
           max: 0,
@@ -147,7 +146,7 @@ export default {
         this.$emit("transaction");
         this.$toast.open({
           duration: 5000,
-          message: `Votre transfert s'est déroulé avec succès!`,
+          message: `Your transfer was successful!`,
           type: "is-success",
         });
       })
@@ -155,7 +154,7 @@ export default {
         loadingComponent.close();
         this.$toast.open({
           duration: 5000,
-          message: `Transfert échoué, merci de réessayer plus tard…`,
+          message: `Transfer failed, please try again later...`,
           type: "is-danger",
         });
       });
