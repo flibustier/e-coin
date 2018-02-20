@@ -11,15 +11,11 @@ import (
 	"github.com/rs/cors"
 )
 
-const (
-	port = 8008
-)
-
 func homeHandler(rw http.ResponseWriter, r *http.Request) {
 	http.ServeFile(rw, r, "./frontend/index.html")
 }
 
-func StartServer() {
+func StartServer(port uint16) {
 	// Set routes
 	router := mux.NewRouter()
 
@@ -40,12 +36,14 @@ func StartServer() {
 	router.PathPrefix("/dist/").Handler(http.StripPrefix("/dist/", http.FileServer(http.Dir("./frontend/dist/"))))
 	router.PathPrefix("/fonts/").Handler(http.StripPrefix("/fonts/", http.FileServer(http.Dir("./frontend/fonts/"))))
 
+	host := fmt.Sprintf("http://localhost:%d", port)
+
 	// CORS
 	c := cors.New(cors.Options{
-		AllowedOrigins: []string{"http://localhost:8080", "https://flibustier.github.io"},
+		AllowedOrigins: []string{"http://localhost:8080", "https://flibustier.github.io", host},
 		AllowedHeaders: []string{"authorization", "id_token", "content-type"},
 	})
 
-	log.Printf("[OK] Server listening on http://localhost:%d/", port)
+	log.Printf("[OK] Server listening on %s\n", host)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", port), c.Handler(router)))
 }
