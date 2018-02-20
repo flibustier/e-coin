@@ -7,20 +7,12 @@
     </div>
     <div class="navbar-end">
       <div class="navbar-item">
-        <p class="is-primary">Bleu : {{ assets.blue }}</p>
-        <b-icon
-                icon="euro_symbol"
-                size="is-large"
-                type="is-info">
-        </b-icon>
+        <p class="is-primary">Blue: {{ assets.blue }}</p>
+        <img class="currency" src="../assets/img/ecoin-blue.png"/>
       </div>
       <div class="navbar-item">
-        <p class="is-primary">Rouge : {{ assets.red }}</p>
-        <b-icon
-                icon="euro_symbol"
-                size="is-large"
-                type="is-danger">
-        </b-icon>
+        <p class="is-primary">Red: {{ assets.red }}</p>
+        <img class="currency" src="../assets/img/ecoin-red.png"/>
       </div>
       <span class="navbar-item">
         <i class="fa fa-sign-out" @click="logout()"></i>
@@ -53,6 +45,10 @@
     text-shadow: 3px 3px #000;
     text-transform: uppercase;
     margin: 0;
+  }
+
+  .currency {
+    margin-left: 0.5em;
   }
 
 </style>

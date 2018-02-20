@@ -13,7 +13,7 @@ let auth = new auth0.WebAuth({
 export function login() {
     auth.authorize({
         responseType: 'token id_token',
-        redirectUri: 'http://localhost:8080/callback',
+        redirectUri: window.location.origin + '/callback',
         audience: config.auth0_audience,
         scope: 'openid email'
     });
