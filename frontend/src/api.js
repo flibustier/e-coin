@@ -110,15 +110,20 @@ const transactions = () =>
 	axios
 		.get(`${config.api}/users/transactions`)
 		.then(response => {
-			return response.data.map(transaction => {
-				const unit = Object.keys(transaction.deposits)[0];
+			return response.data.filter(t => t.balance.assets.length > 0).map(transaction => {
+				let from = transaction.myaddresses[0];
+        let to = transaction.addresses[0];
+				if (transaction.balance.assets[0].qty > 0)
+				{
+					to = from;
+					from = transaction.addresses[0]
+				}
+
 				return {
-					type: transaction.type.toLowerCase(),
-					from: transaction.from,
-					to: transaction.to,
-					time: transaction.transactionTime,
-					unit: unit,
-					amount: transaction.deposits[unit],
+					from: from,
+					to: to,
+					time: transaction.time*1000,
+					assets: transaction.balance.assets,
 				};
 			});
 		})

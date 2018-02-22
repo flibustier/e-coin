@@ -18,40 +18,24 @@
 
         <template slot-scope="props">
 
-          <b-table-column label="Type de transaction" sortable>
-            <div v-if="props.row.type === 'user'">
-              <span class="tag is-info">
-                <b-icon :icon="'swap_horiz'">User</b-icon>
-                User
-              </span>
-            </div>
-            <div v-else>
-              <span class="tag is-danger">
-                <b-icon :icon="'shopping_cart'">User</b-icon>
-                Purchase
-              </span>
-            </div>
-          </b-table-column>
-
           <b-table-column field="from" label="Origin" sortable>
-            {{ props.row.from }}
+            <b-tag :type="getType(props.row.from)" rounded>
+              {{ props.row.from }}
+            </b-tag>
           </b-table-column>
 
           <b-table-column field="to" label="Recipient" sortable>
-            {{ props.row.to }}
+            <b-tag :type="getType(props.row.to)" rounded>
+              {{ props.row.to }}
+            </b-tag>
           </b-table-column>
 
-          <b-table-column field="amount" label="Amount" width="40" sortable numeric>
-            {{ props.row.amount }}
-          </b-table-column>
-
-          <b-table-column field="unit" label="Currency" sortable>
-            <span class="tag is-danger" v-if="props.row.unit === 'RED'">
-              Red
-            </span>
-            <span class="tag is-info" v-else>
-              Blue
-            </span>
+          <b-table-column field="amount" label="Assets" sortable>
+            <div style="display: flex; flex-direction: row" v-for="asset in props.row.assets">
+              {{ Math.abs(asset.qty) }}
+              <img v-if="asset.name === 'blue'" class="currency" src="../assets/img/ecoin-blue.png"/>
+              <img v-else class="currency" src="../assets/img/ecoin-red.png"/>
+            </div>
           </b-table-column>
 
           <b-table-column field="time" label="Date" sortable centered>
@@ -72,8 +56,15 @@
     data() {
       return {
         transactions: [],
-        isFetching: false,
+        isFetching: true,
+        address: null
       };
+    },
+
+    methods: {
+      getType(a) {
+        return (a === this.address) ? "is-info" : "is-white";
+      }
     },
 
     created() {
@@ -81,6 +72,13 @@
         this.transactions = transactions;
         this.isFetching = false;
       });
+      api.address().then(a => this.address = a);
     },
   };
 </script>
+
+<style scoped>
+  .currency {
+    height: 1.5em;
+  }
+</style>

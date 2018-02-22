@@ -12,8 +12,8 @@ import (
 const (
 	InitialReward         = 10     // Quantity of asset that will be given to new users
 	RewardName            = "blue" // Asset's name for reward
-	RewardHalvingInterval = 100    // Every time the number of addresses in our wallet reach this value,
-	// the reward will be halved
+	RewardHalvingInterval = 100    // Every time the number of addresses in our wallet reach this value, the reward will be halved
+	HistoryLength         = 20     // The number of transactions shown for the address history
 )
 
 // numberOfAddresses stores the number of address in the wallet to avoid useless API calls
@@ -82,6 +82,16 @@ func GetAddresses() (interface{}, error) {
 		return nil, err
 	}
 	return addresses.Result(), nil
+}
+
+// GetHistory returns the 'HistoryLength' last transactions for address
+func GetHistory(address string) (interface{}, error) {
+	history, err := client.ListAddressTransactions(address, HistoryLength, 0, false)
+	if err != nil {
+		log.Printf("[ERROR] Could not get history from %s address\n", address)
+		return nil, err
+	}
+	return history.Result(), nil
 }
 
 func InitializeBlockchain() {

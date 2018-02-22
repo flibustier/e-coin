@@ -47,6 +47,7 @@ func GetUserBalance(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(balances)
 }
 
+// GetUserAddress serves the wallet address of the current user
 func GetUserAddress(w http.ResponseWriter, r *http.Request) {
 	address, err := repository.GetUserAddressFromRequest(r)
 	if err != nil {
@@ -100,9 +101,20 @@ func CreateUserTransaction(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// GetUserTransactions serves the history of all transactions (in and out) for the current user
+// GetUserTransactions serves the history of all last transactions (in and out) for the current user
 func GetUserTransactions(w http.ResponseWriter, r *http.Request) {
-	// There is no function for it in github.com/golangdaddy/multichain-client, we should implement it!
+	address, err := repository.GetUserAddressFromRequest(r)
+	if err != nil {
+		errorResponse(w, err)
+		return
+	}
+
+	history, err := repository.GetHistory(address)
+	if err != nil {
+		errorResponse(w, err)
+		return
+	}
+
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode([]string{})
+	json.NewEncoder(w).Encode(history)
 }
