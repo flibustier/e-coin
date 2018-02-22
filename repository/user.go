@@ -105,6 +105,7 @@ func createUser(email string) error {
 	if err != nil {
 		return err
 	}
+	log.Printf("[INFO] A new email/address has been added to the database: %s\n", email)
 
 	// We adjust permissions
 	Grant(address)

@@ -31,7 +31,7 @@ back-end (WIP).
 Sure! As a loyal E-Corp employee, you can register and get your first E-Coin
 immediately!
 
-The link to the demo: <https://flibustier.github.io/e-coin>(translation will be available very soon!)
+Go to: <https://e-coin.jonathan.pl> to claim your reward!
 
 #### It's awesome! I want to build my own E-Coin!
 
@@ -91,7 +91,11 @@ The dependencies are:
 
 ##### Build Front-end
 
-Follow instructions in the [frontend directory](./frontend/README.md) 
+Follow instructions in the [frontend directory](./frontend/README.md)
+```
+npm install
+npm run build
+```
 
 ---
 
