@@ -6,7 +6,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/golangdaddy/multichain-client"
+	"github.com/flibustier/multichain-client"
 )
 
 const (

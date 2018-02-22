@@ -71,6 +71,14 @@
       api.transactions().then(transactions => {
         this.transactions = transactions;
         this.isFetching = false;
+      }).catch(e => {
+        this.isFetching = false;
+        this.$toast.open({
+          duration: 5000,
+          message: `Oops! ${e}`,
+          position: 'is-bottom',
+          type: 'is-danger'
+        })
       });
       api.address().then(a => this.address = a);
     },
