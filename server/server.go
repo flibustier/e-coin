@@ -23,6 +23,7 @@ func StartServer(port uint16) {
 	api := router.PathPrefix("/users").Subrouter().StrictSlash(true)
 	api.Methods("GET").Path("").HandlerFunc(controller.GetUsers)
 	api.Methods("GET").Path("/balance").HandlerFunc(controller.GetUserBalance)
+	api.Methods("GET").Path("/address").HandlerFunc(controller.GetUserAddress)
 	api.Methods("POST").Path("/transfer").HandlerFunc(controller.CreateUserTransaction)
 	api.Methods("GET").Path("/transactions").HandlerFunc(controller.GetUserTransactions)
 	api.Use(authMiddleware)

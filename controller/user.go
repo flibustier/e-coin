@@ -47,6 +47,17 @@ func GetUserBalance(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(balances)
 }
 
+func GetUserAddress(w http.ResponseWriter, r *http.Request) {
+	address, err := repository.GetUserAddressFromRequest(r)
+	if err != nil {
+		errorResponse(w, err)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(address)
+}
+
 // Transaction represents the structure received during a new transaction request
 type Transaction struct {
 	To     string `json:"to"`
