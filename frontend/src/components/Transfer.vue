@@ -6,6 +6,10 @@
 
     <hr/>
 
+    <b-notification type="is-info">
+      Your wallet address is <i>{{ address }}</i>
+    </b-notification>
+
     <b-notification type="is-warning">
       Any transfer is immediate and <strong>irreversible</strong>.
     </b-notification>
@@ -101,6 +105,7 @@ export default {
 
   data() {
     return {
+      address: null,
       autocomplete: {
         data: [],
         name: "",
@@ -201,6 +206,7 @@ export default {
       this.autocomplete.data = users;
       this.autocomplete.isFetching = false;
     });
+    api.address().then(address => this.address = address);
     this.updateWallet();
   },
 };

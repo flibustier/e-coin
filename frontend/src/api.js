@@ -37,6 +37,17 @@ const users = () =>
 			throw e;
 		});
 
+// Get user address
+const address = () =>
+  axios
+    .get(`${config.api}/users/address`)
+    .then(response => {
+      return response.data;
+    })
+    .catch(e => {
+      throw e;
+    });
+
 // -- Transfer
 
 const transfer = (beneficiary, assets) =>
@@ -133,14 +144,15 @@ const change = amount =>
 	});
 
 export default {
+	address,
 	balance,
-	users,
+  change,
+  exchangeRate,
+  goodies,
+  importAddress,
+  purchase,
+  register,
+  transactions,
 	transfer,
-	importAddress,
-	register,
-	goodies,
-	purchase,
-	transactions,
-	exchangeRate,
-	change,
+  users,
 };
