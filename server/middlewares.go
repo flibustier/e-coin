@@ -66,7 +66,7 @@ func idMiddleware(next http.Handler) http.Handler {
 		}
 
 		email := claims["email"]
-		if email != nil && claims["email_verified"] != nil && claims["email_verified"].(bool) {
+		if email != nil /*&& claims["email_verified"] != nil && claims["email_verified"].(bool)*/ {
 			// Store email in context
 			context.Set(r, "email", email.(string))
 			next.ServeHTTP(w, r)
