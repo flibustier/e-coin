@@ -33,6 +33,8 @@ immediately!
 
 Go to: <https://e-coin.jonathan.pl> to claim your reward!
 
+You can also explore the Blockchain with the [Explorer](https://explorer.jonathan.pl)!
+
 #### It's awesome! I want to build my own E-Coin!
 
 Sure! 
@@ -107,12 +109,12 @@ npm run build
   - [x] Database support
   - [x] Create new users
   - [x] Get user balance
-  - [ ] Get list of user
+  - [x] Get list of user
   - [x] Create new transaction
   - [ ] Get user history 
-- [ ] Fully functional
+- [x] Fully functional
 - [x] Release
-- [ ] Add a blockchain explorer
+- [x] Add a blockchain explorer
 - [ ] Add new functionality
 
 #### License
