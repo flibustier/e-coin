@@ -1,6 +1,6 @@
 @echo off
 
-set chain=toto
+set chain=e-coin
 set output=.env
 set multi_dir=%APPDATA%\MultiChain\%chain%
 

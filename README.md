@@ -33,6 +33,10 @@ immediately!
 
 Go to: <https://e-coin.jonathan.pl> to claim your reward!
 
+> You can register any email address to get a wallet address and send some assets 
+to another address, but if you don't want to register your email, you can test the 
+application using `demo@jonathan.pl` as email and `demo` as password! 
+
 You can also explore the Blockchain with the [Explorer](https://explorer.jonathan.pl)!
 
 #### It's awesome! I want to build my own E-Coin!
