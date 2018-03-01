@@ -10,9 +10,9 @@
 
 #### What is E-Coin?
 
-E-Coin is a centralised and corporate digital assets for your E-Corp employees.
+E-Coin is a digital asset for your E-Corp employees.
 
-#### Centralised? What about blockchain?
+#### What about blockchain?
 
 E-Coin use blockchain as a storage for storing assets and transactions.
 
@@ -41,9 +41,15 @@ You can also explore the Blockchain with the [Explorer](https://explorer.jonatha
 
 #### It's awesome! I want to build my own E-Coin!
 
-Sure! 
+Sure! You will need [Golang](https://golang.org/dl/) and [NPM](https://nodejs.org/en/)
 
-##### Build Blockchain
+##### Automated
+
+If you are on Windows, just launch `./start.bat`
+
+##### Manually
+
+###### Build Blockchain
 
 First you need to download [Multichain], 
 then follow these steps by replacing `e-coin` with the name of your currency:
@@ -77,7 +83,7 @@ Node ready.
 You can now fill you `.env` file with the RPC credentials in
 `/home/t.wellick/.multichain/e-coin/multichain.conf` file
 
-##### Build Back-end
+###### Build Back-end
 
 ```$xslt
 go get github.com/flibustier/e-coin
@@ -95,7 +101,7 @@ The dependencies are:
 * auth0-community/go-auth0
 * gopkg.in/square/go-jose.v2
 
-##### Build Front-end
+###### Build Front-end
 
 Follow instructions in the [frontend directory](./frontend/README.md)
 ```
