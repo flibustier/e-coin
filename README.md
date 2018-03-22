@@ -10,7 +10,8 @@
 
 #### What is E-Coin?
 
-E-Coin is a digital asset for your E-Corp employees.
+E-Coin is a digital asset for your E-Corp employees. It's also a demo 
+application.
 
 #### What about blockchain?
 
@@ -21,10 +22,12 @@ for now, perfect for building a private blockchain!
 
 #### How is it working?
 
-E-Coin platform use a [Vue.js](https://github.com/vuejs/vue) front-end, and a Go
-back-end (WIP).
+E-Coin platform use a [Vue.js](https://github.com/vuejs/vue) front-end, a Go
+back-end interacting with Multichain, and Auth0 for managing authentication.
 
-![E-Coin architecture](./resources/e-coin-archi.png)
+<p align="center">
+    <img alt="E-Coin architecture" src="./resources/e-coin-archi.png">
+</p>
 
 #### Can I test it?
 
@@ -33,13 +36,13 @@ immediately!
 
 Go to: <https://e-coin.jonathan.pl> to claim your reward!
 
-> You can register any email address to get a wallet address and send some assets 
+> You can register with any email address in order to get a _e-coin wallet address_ and send some assets 
 to another address, but if you don't want to register your email, you can test the 
-application using `demo@jonathan.pl` as email and `demo` as password! 
+application using `demo@jonathan.pl` email and `demo` password! 
 
 You can also explore the Blockchain with the [Explorer](https://explorer.jonathan.pl)!
 
-#### It's awesome! I want to build my own E-Coin!
+#### Awesome! I want to develop my own E-Coin!
 
 Sure! You will need [Golang](https://golang.org/dl/) and [NPM](https://nodejs.org/en/)
 
@@ -49,7 +52,7 @@ If you are on Windows, just launch `./start.bat`
 
 ##### Manually
 
-###### Build Blockchain
+###### Build your Blockchain
 
 First you need to download [Multichain], 
 then follow these steps by replacing `e-coin` with the name of your currency:
@@ -121,7 +124,7 @@ npm run build
   - [x] Get user balance
   - [x] Get list of user
   - [x] Create new transaction
-  - [ ] Get user history 
+  - [x] Get user history 
 - [x] Fully functional
 - [x] Release
 - [x] Add a blockchain explorer
