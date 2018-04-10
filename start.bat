@@ -70,10 +70,10 @@ goto compile
 
 :front
 cd frontend
-echo [INFO] (T-2) NPM install…
-npm run install
+echo [INFO] (T-2) NPM install
+call npm install
 echo [INFO] NPM build
-npm run build
+call npm run build
 echo [OK] Front-end ready!
 cd ..
 goto build
