@@ -16,13 +16,13 @@ import (
 func getValidator() *auth0.JWTValidator {
 	issuer := "https://" + os.Getenv("AUTH0_DOMAIN") + "/"
 	jwksURI := issuer + ".well-known/jwks.json"
-	client := auth0.NewJWKClient(auth0.JWKClientOptions{URI: jwksURI})
+	client := auth0.NewJWKClient(auth0.JWKClientOptions{URI: jwksURI}, nil)
 
 	aud := os.Getenv("AUTH0_AUDIENCE")
 	audience := []string{aud}
 
 	configuration := auth0.NewConfiguration(client, audience, issuer, jose.RS256)
-	return auth0.NewValidator(configuration)
+	return auth0.NewValidator(configuration, nil)
 }
 
 // deny writes a unauthorized response
