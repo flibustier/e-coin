@@ -24,6 +24,7 @@ if not exist %CD%\frontend\dist goto front
 :build
 if not exist main.exe goto back
 :launch
+timeout 7
 start main.exe
 echo [FINISH] (T+1) The server is now launched! You can also launch it manually with ./main.exe
 pause
