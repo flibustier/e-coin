@@ -8,7 +8,8 @@
   "private": false,
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --hot",
-    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
+    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
+    "format": "prettier src/** --write"
   },
   "dependencies": {
     "auth0-js": "^9.3.0",
@@ -32,6 +33,7 @@
     "css-loader": "^0.25.0",
     "file-loader": "^0.9.0",
     "node-sass": "^4.5.3",
+    "prettier": "1.19.1",
     "sass-loader": "^6.0.6",
     "vue-loader": "^12.1.0",
     "vue-template-compiler": "^2.3.3",

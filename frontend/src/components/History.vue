@@ -31,7 +31,7 @@
           </b-table-column>
 
           <b-table-column field="amount" label="Assets" sortable>
-            <div style="display: flex; flex-direction: row" v-for="asset in props.row.assets">
+            <div style="display: flex; flex-direction: row" v-for="asset in props.row.assets" :key="asset.name">
               {{ Math.abs(asset.qty) }}
               <img v-if="asset.name === 'blue'" class="currency" src="../assets/img/ecoin-blue.png"/>
               <img v-else class="currency" src="../assets/img/ecoin-red.png"/>
