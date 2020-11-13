@@ -14,18 +14,17 @@ const routes = [
   { path: "/", component: Home, props: true, beforeEnter: requireAuth },
   { path: "/login", component: Login },
   { path: "/callback", component: Callback },
-  { path: "/history", component: History, beforeEnter: requireAuth },
+  { path: "/history", component: History },
   {
     path: "/transfer",
     component: Transfer,
     props: true,
-    beforeEnter: requireAuth
-  }
+  },
 ];
 
 // export router instance
 export default new Router({
   mode: "history",
   routes,
-  linkActiveClass: "is-active"
+  linkActiveClass: "is-active",
 });

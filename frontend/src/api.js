@@ -138,7 +138,6 @@ export default {
   change,
   exchangeRate,
   importAddress,
-  purchase,
   register,
   transactions,
   transfer,
